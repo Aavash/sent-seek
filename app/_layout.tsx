@@ -1,28 +1,37 @@
-import { Stack } from "expo-router";
+// app/_layout.tsx
+import { MaterialIcons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
 
 export default function Layout() {
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: "#6366f1",
+        tabBarInactiveTintColor: "#888",
+        tabBarStyle: {
+          backgroundColor: "#fff",
+        },
+        headerShown: false, // Hide tab headers, let stack handle them
+      }}
+    >
+      <Tabs.Screen
+        name="(home)" // Points to app/(home) folder
         options={{
-          title: "Text Recognition",
-          headerShown: false,
+          title: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="home" size={size} color={color} />
+          ),
         }}
       />
-      <Stack.Screen
-        name="details"
+      <Tabs.Screen
+        name="(settings)" // Points to app/(settings) folder
         options={{
-          title: "Word Details",
-          headerStyle: {
-            backgroundColor: "#6366f1",
-          },
-          headerTintColor: "#fff",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
+          title: "Settings",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="settings" size={size} color={color} />
+          ),
         }}
       />
-    </Stack>
+    </Tabs>
   );
 }

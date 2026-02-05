@@ -1,3 +1,4 @@
+import TextRecognition from "@react-native-ml-kit/text-recognition";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
@@ -14,7 +15,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import TextRecognition from "@react-native-ml-kit/text-recognition";
 
 interface Word {
   id: number;
@@ -35,7 +35,8 @@ export default function Home() {
 
   useEffect(() => {
     (async () => {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== "granted") {
         Alert.alert("Permission needed", "We need access to your photos.");
       }
@@ -92,7 +93,7 @@ export default function Home() {
       const manipResult = await ImageManipulator.manipulateAsync(
         uri,
         [{ resize: { width: 1000 } }], // 800–1200 works well for most text
-        { compress: 0.75, format: ImageManipulator.SaveFormat.JPEG }
+        { compress: 0.75, format: ImageManipulator.SaveFormat.JPEG },
       );
 
       // ML Kit text recognition
@@ -122,7 +123,7 @@ export default function Home() {
       console.error("OCR error:", err);
       Alert.alert(
         "Error",
-        err?.message || "Failed to recognize text. Try a clearer photo."
+        err?.message || "Failed to recognize text. Try a clearer photo.",
       );
     } finally {
       setIsProcessing(false);
@@ -362,12 +363,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
-  },
-  processingText: {
-    marginTop: 16,
-    fontSize: 18,
-    color: "#6366f1",
-    fontWeight: "600",
   },
   badgeText: { color: "#4f46e5", fontSize: 13, fontWeight: "600" },
   wordItem: {
